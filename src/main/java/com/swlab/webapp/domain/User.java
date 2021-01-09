@@ -2,30 +2,54 @@ package com.swlab.webapp.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+@Table(name = "users")
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -1503466419962590641L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false, columnDefinition = "INT(10)")
     private Long id;
-    private String account;
-    private String password;
+
+    @Column(length = 50, nullable = false, unique = true)
     private String email;
 
+    @Column(length = 50, nullable = false)
+    private String password;
+
+    @Column(length = 20, nullable = false)
+    private String name;
+
+    @Column(length = 11, nullable = false)
+    private String phoneNo;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createTimestamp;
+
+    @PrePersist
+    protected void onCreate() {
+        createTimestamp = Timestamp.valueOf(LocalDateTime.now());
+    }
+
     @Builder
-    public User (Long id, String account, String password, String email) {
+    public User(Long id, String email, String password, String name, String phoneNo) {
         this.id = id;
-        this.account = account;
-        this.password = password;
         this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phoneNo = phoneNo;
     }
 
 

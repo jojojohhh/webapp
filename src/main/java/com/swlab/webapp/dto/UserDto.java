@@ -11,24 +11,28 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserDto {
     private Long id;
-    private String account;
-    private String password;
     private String email;
+    private String password;
+    private String name;
+    private String phoneNo;
+
 
     public User toEntity() {
         return User.builder()
                 .id(id)
-                .account(account)
-                .password(password)
                 .email(email)
+                .password(password)
+                .name(name)
+                .phoneNo(phoneNo)
                 .build();
     }
 
     @Builder
-    public UserDto(Long id, String account, String password, String email) {
+    public UserDto(Long id, String email, String password, String name, String phoneNo) {
         this.id = id;
-        this.account = account;
-        this.password = password;
         this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phoneNo = phoneNo;
     }
 }
