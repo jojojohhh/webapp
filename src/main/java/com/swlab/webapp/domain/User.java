@@ -44,8 +44,7 @@ public class User implements Serializable {
     }
 
     @Builder
-    public User(Long id, String email, String password, String name, String phoneNo) {
-        this.id = id;
+    public User(String email, String password, String name, String phoneNo) {
         this.email = email;
         this.password = password;
         this.name = name;

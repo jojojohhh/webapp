@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserDto {
-    private Long id;
     private String email;
     private String password;
     private String name;
@@ -19,7 +18,6 @@ public class UserDto {
 
     public User toEntity() {
         return User.builder()
-                .id(id)
                 .email(email)
                 .password(password)
                 .name(name)
@@ -28,8 +26,7 @@ public class UserDto {
     }
 
     @Builder
-    public UserDto(Long id, String email, String password, String name, String phoneNo) {
-        this.id = id;
+    public UserDto(String email, String password, String name, String phoneNo) {
         this.email = email;
         this.password = password;
         this.name = name;
