@@ -7,10 +7,12 @@ spring:
     check-template-location: true
     prefix: classpath:/templates/
     suffix: .html
-    cache: true
+    cache: false #true
+  mvc:
+    static-path-pattern: /static/**
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/swlabdb_ex?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Seoul"
+    url: "jdbc:mysql://localhost:3306/swlabdb_ex?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false"
     username: swlab
     password: swlab
     hikari:
@@ -27,5 +29,12 @@ spring:
         format_sql: true
     generate-ddl: false
     open-in-view: false
+  security:
+    user:
+      name: admin
+      password: admin
+      roles:
+        - ADMIN
+        - VIEW
 server:
   port: 8989

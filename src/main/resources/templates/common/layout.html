@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.na/thymeleaf/layout">
+<head>
+    <title>
+        <th:block layout:fragment="f-title">title</th:block>
+    </title>
+    <th:block th:insert="common/block :: f-header"></th:block>
+</head>
+<body>
+    <header>
+        <a th:href="@{/home}">
+            <img th:src="@{/static/img/like.png}" width="50" height="auto" alt="home page" id="btn_home">
+        </a>
+        <ul>
+            <li sec:authorize="isAuthenticated()">
+                <span sec:authentication="principal.username"></span> 님
+            </li>
+            <li>
+                <form id="logoutFrm" th:action="@{/logout}" method="post" style="display: inline-block">
+                    <a href="#" onclick="document.getElementById('logoutFrm').submit()" data-toggle="tooltip" data-placement="logout" title="Logout">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </form>
+            </li>
+        </ul>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light" id="nav_area">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav_menu_area">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav_menu_area">
+            <ul class="navbar-nav" id="n_menu">
+                <li class="nav-item" th:classappend="${currentPage eq 'home'} ? 'active' : ''" th:attr="data-href=@{/home}">홈</li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" th:classappend="${currentPage eq 'user'} ? 'active' : ''" th:attr="data-href=@{/home/users}">회원</li>
+            </ul>
+        </div>
+    </nav>
+
+    <section layout:fragment="f-content"></section>
+
+    <footer>
+        <p>
+            SWLAB - DEMO
+        </p>
+    </footer>
+
+    <th:block th:insert="common/block :: f-footer"></th:block>
+</body>
+</html>
