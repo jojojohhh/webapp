@@ -22,6 +22,9 @@
                 <div>
                     <button type="button" class="btn btn-info btn-large form-control" id="btn_login">로그인</button>
                 </div>
+                <div>
+                    <button type="button" class="btn btn-secondary btn-large form-control" id="btn_join">회원가입</button>
+                </div>
             </form>
             <hr class="separator"/>
             <div>
@@ -45,7 +48,11 @@
                    return false;
                }
                $(this).closest("form").submit();
-           })
+           });
+
+           $("#btn_join").on("click", function() {
+               location.href = "[[@{/join}]]";
+           });
         });
     </script>
 </th:block>

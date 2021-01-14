@@ -3,13 +3,13 @@ package com.swlab.webapp.model.user;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.swlab.webapp.model.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter @Setter
 @Entity
 @Table(name = "user_role", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_name"})})
@@ -28,8 +28,19 @@ public class UserRole extends BaseEntity implements GrantedAuthority {
     @Enumerated(EnumType.STRING)
     private RoleType roleName;
 
+    @Override
+    public Object getSimple() {
+        return roleName.name();
+    }
+
     public enum RoleType {
         ROLE_ADMIN, ROLE_VIEW
+    }
+
+    @Builder
+    public UserRole(User user, RoleType roleName) {
+        this.user = user;
+        this.roleName = roleName;
     }
 
     @JsonIgnore
@@ -37,4 +48,6 @@ public class UserRole extends BaseEntity implements GrantedAuthority {
     public String getAuthority() {
         return this.roleName.name();
     }
+
+
 }

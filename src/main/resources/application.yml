@@ -36,6 +36,7 @@ spring:
       name: admin
       password: admin
       roles:
+        - ADMIN
         - VIEW
 server:
   port: 8989

@@ -31,4 +31,6 @@ public abstract class BaseEntity implements Serializable {
     protected void onCreate() {
         creatTimeStamp = Timestamp.valueOf(LocalDateTime.now());
     }
+
+    public abstract Object getSimple();
 }

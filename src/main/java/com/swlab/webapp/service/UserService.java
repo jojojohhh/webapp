@@ -2,24 +2,26 @@ package com.swlab.webapp.service;
 
 import com.swlab.webapp.model.user.User;
 import com.swlab.webapp.dto.UserDto;
+import com.swlab.webapp.model.user.UserRole;
 import com.swlab.webapp.repository.UserRepository;
+import com.swlab.webapp.repository.UserRoleRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserService (UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRoleRepository userRoleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public Optional<User> findByEmail(String email) {
@@ -69,5 +71,15 @@ public class UserService {
             return 1;
         }
         return 0;
+    }
+
+    private UserRole saveUserRole(User user) {
+        return userRoleRepository.save(UserRole.builder().user(user).roleName(UserRole.RoleType.ROLE_VIEW).build());
+    }
+
+    public User join(UserDto userDto) {
+        User user = save(userDto);
+        saveUserRole(user);
+        return user;
     }
 }
