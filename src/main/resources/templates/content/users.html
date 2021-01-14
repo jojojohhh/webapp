@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.na/thymeleaf/layout"
+      layout:decorator="common/layout">
+
+<th:block layout:fragment="f-title">main</th:block>
+
+<section layout:fragment="f-content">
+    <div class="container">
+        <div class="d-title">
+            <h2>user 조회</h2>
+        </div>
+        <div class="d-content">
+            <div class="row">
+                <div class="table-responsive">
+                    <thead>
+                        <tr class="text-center">
+                            <th width="20%">이메일</th>
+                            <th width="">이름</th>
+                            <th width="">전화번호</th>
+                            <th width="">가입일시</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" th:object="${user}" th:each="user: ${users}" attr="data-href=@{/home/users/__${user.email}__}">
+                            <td th:text="*{ email }"></td>
+                            <td th:text="*{ name }"></td>
+                            <td th:text="*{ phoneNo }"></td>
+                            <td th:text="*{ createTimestamp }"></td>
+                        </tr>
+                    </tbody>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

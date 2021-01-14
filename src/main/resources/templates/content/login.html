@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/layout_login">
+
+<section layout:fragment="f-content">
+    <div class="login_wrapper">
+        <section>
+            <h1>
+                <img th:src="@{/static/img/like.png}" width="50" height="auto" alt="SWLAB_DEMO" id="btn_loginHome">
+            </h1>
+            <form method="post" th:action="@{/login}">
+                <div>
+                    <input type="text" name="email" class="form-control" placeholder="email" autocomplete="off" required/>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off" required/>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-info btn-large form-control" id="btn_login">로그인</button>
+                </div>
+            </form>
+            <hr class="separator"/>
+            <div>
+                <h1>SWLAB_DEMO</h1>
+                <p>©2021 All Rights Reserved.</p>
+            </div>
+        </section>
+    </div>
+</section>
+
+<th:block layout:fragment="f-script">
+    <script>
+        $(function () {
+           $("#btn_login").on("click", function () {
+               var email = $("input[name='email']").val(), password = $("input[name='password']").val();
+               if (email == "") {
+                   alert("이 메일을 입력하세요.");
+                   return false;
+               } else if (password == "") {
+                   alert("비밀번호를 입력하세요.");
+                   return false;
+               }
+               $(this).closest("form").submit();
+           })
+        });
+    </script>
+</th:block>

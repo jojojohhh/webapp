@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.na/thymeleaf/layout">
@@ -33,7 +34,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav_menu_area">
-            <ul class="navbar-nav" id="n_menu">
+            <ul class="navbar-nav" id="nav_menu" style="margin: 0 auto; width: 1140px;">
                 <li class="nav-item" th:classappend="${currentPage eq 'home'} ? 'active' : ''" th:attr="data-href=@{/home}">홈</li>
                 <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" th:classappend="${currentPage eq 'user'} ? 'active' : ''" th:attr="data-href=@{/home/users}">회원</li>
             </ul>

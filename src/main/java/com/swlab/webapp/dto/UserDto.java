@@ -1,6 +1,6 @@
 package com.swlab.webapp.dto;
 
-import com.swlab.webapp.domain.User;
+import com.swlab.webapp.model.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

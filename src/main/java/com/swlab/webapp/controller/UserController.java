@@ -1,6 +1,6 @@
 package com.swlab.webapp.controller;
 
-import com.swlab.webapp.domain.User;
+import com.swlab.webapp.model.user.User;
 import com.swlab.webapp.dto.UserDto;
 import com.swlab.webapp.service.UserService;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.swlab.webapp.service;
 
-import com.swlab.webapp.domain.User;
+import com.swlab.webapp.model.user.User;
 import com.swlab.webapp.dto.UserDto;
 import com.swlab.webapp.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +24,11 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Transactional

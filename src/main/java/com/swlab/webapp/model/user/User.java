@@ -1,26 +1,26 @@
-package com.swlab.webapp.domain;
+package com.swlab.webapp.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.swlab.webapp.model.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
-
+import java.util.Set;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
-public class User implements Serializable {
+@DynamicInsert @DynamicUpdate
+public class User extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -1503466419962590641L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false, columnDefinition = "INT(10)")
-    private Long id;
 
     @Column(length = 50, nullable = false, unique = true)
     private String email;
@@ -34,14 +34,12 @@ public class User implements Serializable {
     @Column(length = 11, nullable = false)
     private String phoneNo;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date createTimestamp;
-
-    @PrePersist
-    protected void onCreate() {
-        createTimestamp = Timestamp.valueOf(LocalDateTime.now());
-    }
+    @Singular("userRoles")
+    @JsonIgnoreProperties({"createTimestamp", "del"})
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    @Where(clause = "del = false")
+    private Set<UserRole> userRoles;
 
     @Builder
     public User(String email, String password, String name, String phoneNo) {
@@ -50,6 +48,4 @@ public class User implements Serializable {
         this.name = name;
         this.phoneNo = phoneNo;
     }
-
-
 }

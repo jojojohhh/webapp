@@ -26,7 +26,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
+        hbm2ddl.auto: update
         format_sql: true
+        show_sql: true
     generate-ddl: false
     open-in-view: false
   security:
@@ -34,7 +36,6 @@ spring:
       name: admin
       password: admin
       roles:
-        - ADMIN
         - VIEW
 server:
   port: 8989
