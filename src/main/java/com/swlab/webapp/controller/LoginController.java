@@ -4,7 +4,7 @@ import com.swlab.webapp.dto.UserDto;
 import com.swlab.webapp.model.user.SecurityUser;
 import com.swlab.webapp.model.user.UserRole;
 import com.swlab.webapp.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,22 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Controller
 public class LoginController {
 
     private final UserService userService;
 
-    @Autowired
-    public LoginController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping(value = {"", "/login"})
     public String getIndex(@AuthenticationPrincipal SecurityUser user) {
-        if (user != null) {
-            if (user.getRoleTypes().contains(UserRole.RoleType.ROLE_VIEW)) {
-                return "redirect:/home";
-            }
+        if (user != null && user.getRoleTypes().contains(UserRole.RoleType.ROLE_VIEW)) {
+            return "redirect:/home";
         }
         return "content/login";
     }

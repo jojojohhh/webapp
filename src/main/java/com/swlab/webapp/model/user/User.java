@@ -2,6 +2,7 @@ package com.swlab.webapp.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.swlab.webapp.dto.UserDto;
 import com.swlab.webapp.model.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -22,10 +23,10 @@ public class User extends BaseEntity implements Serializable {
     private static final long serialVersionUID = -1503466419962590641L;
 
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 150, nullable = false)
     private String password;
 
     @Column(length = 20, nullable = false)
@@ -47,5 +48,10 @@ public class User extends BaseEntity implements Serializable {
         this.password = password;
         this.name = name;
         this.phoneNo = phoneNo;
+    }
+
+    @Override
+    public UserDto getSimple() {
+        return UserDto.builder().email(getEmail()).name(getName()).phoneNo(getPhoneNo()).build();
     }
 }

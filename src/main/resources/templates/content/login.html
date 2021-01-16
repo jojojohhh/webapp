@@ -23,7 +23,7 @@
                     <button type="button" class="btn btn-info btn-large form-control" id="btn_login">로그인</button>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-secondary btn-large form-control" id="btn_join">회원가입</button>
+                    <button type="button" class="btn btn-secondary btn-large form-control" id="btn_joinForm">회원가입</button>
                 </div>
             </form>
             <hr class="separator"/>
@@ -38,6 +38,11 @@
 <th:block layout:fragment="f-script">
     <script>
         $(function () {
+            $(document.body).delegate(":input", "keyup", function (e) {
+                if (e.which == 13)
+                    $("#btn_login").trigger("click");
+            });
+
            $("#btn_login").on("click", function () {
                var email = $("input[name='email']").val(), password = $("input[name='password']").val();
                if (email == "") {
@@ -50,7 +55,7 @@
                $(this).closest("form").submit();
            });
 
-           $("#btn_join").on("click", function() {
+           $("#btn_joinForm").on("click", function() {
                location.href = "[[@{/join}]]";
            });
         });

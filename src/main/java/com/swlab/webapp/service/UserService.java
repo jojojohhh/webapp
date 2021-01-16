@@ -37,7 +37,7 @@ public class UserService {
     public User save(UserDto userDto) {
         User user = User.builder()
                 .email(userDto.getEmail())
-                .password(userDto.getPassword())
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .name(userDto.getName())
                 .phoneNo(userDto.getPhoneNo())
                 .build();
