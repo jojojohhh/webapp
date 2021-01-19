@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.na/thymeleaf/layout">
+<head>
+    <title>
+        <th:block layout:fragment="f-title">title</th:block>
+    </title>
+    <th:block th:insert="common/block :: f-header"></th:block>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav me-auto mb-2 mb-md0">
+                <li class="nav-item active">
+                    <a class="nav-link" aria-current="page" th:href="@{/home}">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">LINK</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a>test</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section layout:fragment="f-content"></section>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">SWLAB - DEMO</span>
+    </div>
+</footer>
+
+<th:block th:insert="common/block :: f-footer"></th:block>
+</body>
+</html>
+
+
