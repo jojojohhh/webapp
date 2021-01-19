@@ -20,14 +20,25 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.4.1'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.1'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
-	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
-	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+
 }
 
 test {
 	useJUnitPlatform()
+}
+
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'local' : profile
+
+sourceSets {
+	main {
+		resources {
+			srcDirs "src/main/resources", "src/main/resources/profiles/${profile}"
+		}
+	}
 }
